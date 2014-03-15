@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.univ-lyon1.fr/M2TI/TIW5/wine/model" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.univ-lyon1.fr/M2TI/TIW5/wine/model">
+
+    <complexType name="locationT">
+    	<sequence>
+    		<element name="country" type="string"></element>
+    		<element name="region" type="string"></element>
+    		<element name="subregion" type="string"></element>
+    		<element name="wine" type="tns:wineT" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="wineT">
+    	<sequence>
+    		<element name="appellation" type="string"></element>
+    		<element name="color" type="string"></element>
+    		<element name="composition" type="tns:compositionT"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    		<element name="percentageAlcohol" type="float"></element>
+    		<element name="producer" type="string"></element>
+    		<element name="vineyard" type="string"></element>
+    		<element name="vintage" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="style" type="string"></element>
+    		<element name="type" type="string"></element>
+    		<element name="price" type="double"></element>
+    		<element name="bottle" type="tns:bottleT"
+    			maxOccurs="unbounded">
+    		</element>
+    	</sequence>
+    	<attribute name="id" type="string"></attribute>
+    </complexType>
+
+    <complexType name="bottleT">
+    	<attribute name="id" type="string"></attribute>
+    </complexType>
+    
+    <complexType name="compositionT">
+    	<sequence>
+    		<element name="variety" type="string"></element>
+    		<element name="percentage" type="int"></element>
+    	</sequence>
+    </complexType>
+    
+    <element name="collection">
+    	<complexType>
+    		<sequence>
+    			<element name="location" type="tns:locationT" maxOccurs="unbounded" minOccurs="0"></element>
+    		</sequence>
+    	</complexType>
+    </element>
+</schema>

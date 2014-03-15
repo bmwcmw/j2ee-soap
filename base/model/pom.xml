@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>model</artifactId>
+  <packaging>jar</packaging>
+
+  <name>Wine Models</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.postgresql</groupId>
+    	<artifactId>postgresql</artifactId>
+    	<version>9.2-1003-jdbc4</version>
+    	<scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.hibernate.javax.persistence</groupId>
+    	<artifactId>hibernate-jpa-2.0-api</artifactId>
+    	<version>1.0.1.Final</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-entitymanager</artifactId>
+    	<version>4.2.5.Final</version>
+    	<scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <parent>
+  	<groupId>sw.wine</groupId>
+  	<artifactId>base</artifactId>
+  	<version>2013.0</version>
+  	<relativePath>..</relativePath>
+  </parent>
+</project>
