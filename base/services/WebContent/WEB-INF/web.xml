@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+
+	<display-name>Wine Livraison Service</display-name>
+	
+	<context-param>
+    	<param-name>contextConfigLocation</param-name>
+    	<param-value>WEB-INF/beans.xml</param-value>
+    </context-param>
+    
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+    
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<servlet>
+		<display-name>HelloworldServlet</display-name>
+		<servlet-name>HelloWorldServlet</servlet-name>
+		<servlet-class>sw.wine.livraison.servlet.HelloWorldServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<display-name>LivraisonServlet</display-name>
+		<servlet-name>LivraisonServlet</servlet-name>
+		<servlet-class>sw.wine.livraison.servlet.LivraisonServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+    	<display-name>LivraisonService</display-name>
+   		<servlet-name>LivraisonService</servlet-name>
+    	<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    	<load-on-startup>1</load-on-startup> 
+  	</servlet>
+  	<servlet>
+    	<display-name>LivraisonServiceProvider</display-name>
+   		<servlet-name>LivraisonServiceProvider</servlet-name>
+    	<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    	<load-on-startup>1</load-on-startup> 
+  	</servlet>
+<!-- 	<servlet>
+    	<display-name>LivraisonStubServlet</display-name>
+   		<servlet-name>LivraisonStubServlet</servlet-name>
+    	<servlet-class>sw.wine.livraison.servletstub.LivraisonService</servlet-class>
+    	<load-on-startup>1</load-on-startup> 
+  	</servlet> -->
+	<servlet-mapping>
+		<servlet-name>HelloWorldServlet</servlet-name>
+		<url-pattern>/helloworld/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LivraisonServlet</servlet-name>
+		<url-pattern>/livraison/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+    	<servlet-name>LivraisonService</servlet-name>
+    	<url-pattern>/livraisonservice/*</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+    	<servlet-name>LivraisonServiceProvider</servlet-name>
+    	<url-pattern>/livraisonserviceprovider/*</url-pattern>
+  	</servlet-mapping>
+<!--   	<servlet-mapping>
+    	<servlet-name>LivraisonStubServlet</servlet-name>
+    	<url-pattern>/livraisonstub/*</url-pattern>
+  	</servlet-mapping> -->
+
+</web-app>
