@@ -19,7 +19,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import sw.wine.itf.ILocation;
@@ -62,11 +61,11 @@ public class Wine implements IWine, Serializable {
 	@Column(name = "style")
 	@XmlElement(name = "style")
 	private String winestyle;
+	@XmlElement(name = "price")
+	private double price;
 	@OneToMany(mappedBy = "wine")
 	@XmlElement(name = "bottle")
 	private List<Bottle> bottles = new ArrayList<Bottle>();
-	@XmlElement
-	private double price;
 
 	@Override
 	public String getFBId() {
@@ -127,6 +126,11 @@ public class Wine implements IWine, Serializable {
 	public String getWineStyle() {
 		return winestyle;
 	}
+	
+	@Override
+	public double getPrice() {
+		return price;
+	}
 
 	public void setFbId(String fbId) {
 		this.fbId = fbId;
@@ -172,6 +176,10 @@ public class Wine implements IWine, Serializable {
 		this.winestyle = winestyle;
 	}
 
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public void addVariety(String variety, int percentage) {
 		composition.add(new VarietyComposition(this, variety, percentage));
 	}
@@ -202,15 +210,6 @@ public class Wine implements IWine, Serializable {
 			b.setWine(null);
 			bottles.remove(bottles.size() - 1);
 		}
-	}
-
-	@XmlTransient
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
 	}
 
 }

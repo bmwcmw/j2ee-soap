@@ -28,5 +28,7 @@ public interface IWine {
 	WineType getWineType();
 	
 	String getWineStyle();
+
+	double getPrice();
 	
 }

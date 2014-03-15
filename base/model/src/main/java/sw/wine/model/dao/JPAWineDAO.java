@@ -8,10 +8,13 @@ import javax.persistence.PersistenceContext;
 
 import sw.wine.itf.DAOException;
 import sw.wine.itf.IBottle;
+import sw.wine.itf.ICommande;
+import sw.wine.itf.ICommandeArticles;
 import sw.wine.itf.ILocation;
 import sw.wine.itf.IWine;
 import sw.wine.itf.IWineDAO;
 import sw.wine.model.Bottle;
+import sw.wine.model.Commande;
 import sw.wine.model.Location;
 import sw.wine.model.Wine;
 
@@ -30,7 +33,52 @@ public class JPAWineDAO implements IWineDAO {
 	public void setEntityManager(EntityManager em) {
 		this.em = em;
 	}
+	
+	/*LIVRAISON*/
+	public void insertOrUpdate(ICommande commande) throws DAOException {
+		try {
+			Commande c = (Commande) commande;
+			if (c.getId() != null && em.find(Commande.class, c.getId()) != null) {
+				em.merge(c);
+			} else {
+				em.persist(c);
+			}
+		} catch (ClassCastException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+	
+//	public void insertOrUpdate(ICommandeArticles commandearticles) throws DAOException {
+//		try {
+//			CommandeArticles ca = (CommandeArticles) commandearticles;
+//			if (ca.getId() != null && em.find(CommandeArticles.class, ca.getId()) != null) {
+//				em.merge(ca);
+//			} else {
+//				em.persist(ca);
+//			}
+//		} catch (ClassCastException e) {
+//			throw new IllegalArgumentException(e);
+//		}
+//	}
 
+	public Commande findCommandeById(long id) throws DAOException {
+		return em.find(Commande.class, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Collection<ICommandeArticles> getAllCommandeArticles() {
+		return new ArrayList<ICommandeArticles>(em.createQuery(
+				"SELECT ca FROM CommandeArticles ca").getResultList());
+	}
+	
+	public void deleteCommande(ICommande commande) {
+		em.remove((Commande) commande);
+	}
+	
+//	public void deleteCommandeArticles(ICommandeArticles ca) {
+//		em.remove((CommandeArticles) ca);
+//	}
+	/*LIVRAISON*/
 	@Override
 	public void insertOrUpdate(IWine wine) throws DAOException {
 		try {
