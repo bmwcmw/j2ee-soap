@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -16,6 +18,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import org.apache.cxf.jaxws.context.WrappedMessageContext;
+import org.apache.cxf.message.Message;
+import org.mortbay.log.Log;
 import org.springframework.transaction.annotation.Transactional;
 
 import sw.wine.itf.DAOException;
@@ -28,17 +33,35 @@ import sw.wine.model.Bottle;
 import sw.wine.model.Commande;
 import sw.wine.model.CommandeArticles;
 import sw.wine.model.Wine;
+import sw.wine.model.dao.ClientDAO;
 import sw.wine.model.dao.JPAWineDAO;
+import sw.wine.model.user.Client;
+import sw.wine.handlers.*;
+
+import javax.xml.soap.SOAPElement;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPHeader;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
+import org.apache.cxf.binding.soap.SoapMessage;
+
 
 @WebService(name="LivraisonServiceItf", portName="LivraisonServicePort",
 serviceName="LivraisonServiceService", targetNamespace="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/livraisons/")
-
+@HandlerChain(file="handler-chains.xml")
 public class LivraisonService{
 	
     @Resource
     JPAWineDAO dao;
     
+    @Resource 
+    ClientDAO cDao;
+    
 	EntityManager em;
+	
+	@Resource
+	WebServiceContext wsc;
 	
 	public LivraisonService(){
 		em = Persistence.createEntityManagerFactory("pg").createEntityManager();
@@ -51,12 +74,20 @@ public class LivraisonService{
 		JPAWineDAO dao = new JPAWineDAO(em);
 		EntityTransaction et=em.getTransaction();
 		if (!et.isActive()) et.begin();
+		ClientDAO cDao = new ClientDAO(em);
 		System.out.println("CommandeInfos - Création de commande pour "+vins.length+" vins");
 		double prixTotal = 0;
 		int nombreCmdTmp;
 		int nombreDispTmp;
 		double prixTmp;
 		Wine w;
+		Client client=null;
+		Map<String, Client> attachments = (Map<String, Client>) wsc.getMessageContext().get(javax.xml.ws.handler.MessageContext.INBOUND_MESSAGE_ATTACHMENTS); 
+		for(String attachmentKey: attachments.keySet()) {
+            client =  attachments.get(attachmentKey);
+            Logger.getLogger("asy").info(client.getNom()+" "+client.getCompte());
+        }
+
 		for(int i=0;i<vins.length;i++){
 			try {
 				w = dao.findWineById(vins[i].getReferenceVin());
@@ -94,6 +125,8 @@ public class LivraisonService{
 			newCmd.setCmdId(String.valueOf(cmd.getId()));
 			newCmd.setPrix(prixTotal);//Long to String
 			System.out.println("CommandeInfos - Commande créée : prix="+prixTotal);
+			client.setCompte(client.getCompte()-prixTotal);
+			cDao.insertOrUpdate(client);
 	        et.commit();
 			//em.close();  
 			return newCmd;

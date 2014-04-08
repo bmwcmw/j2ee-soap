@@ -12,6 +12,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.jws.HandlerChain;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,12 +25,16 @@ import sw.wine.model.Wine;
 import sw.wine.model.WineCollection;
 import sw.wine.model.dao.JPAWineDAO;
 
+
+
+
 @WebService(name="WineStorageItf", portName="WineStoragePort",
         serviceName="WineStorageService", targetNamespace="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage")
+@HandlerChain(file="handler-chains.xml")
 public class WineStorage {
 	
 	private static final Logger LOG = Logger.getLogger(WineStorage.class.getName());
-
+	
     @Resource
     JPAWineDAO dao;
     
@@ -60,7 +65,6 @@ public class WineStorage {
         		wine.removeVariety(cmp.getVariety());
         		wine.addVariety(cmp.getVariety(), cmp.getPercentage());
         	}
-        	LOG.info("---  Vineyard du vin : "+String.valueOf(wine.getVineyard()));
             dao.insertOrUpdate(wine);
             // pour être sur d'avoir la bonne instance
             wine = dao.findWineById(wine.getFBId());

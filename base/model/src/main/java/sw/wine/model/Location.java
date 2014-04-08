@@ -71,11 +71,11 @@ public class Location implements ILocation, Serializable {
 		return wines;
 	}
 
-	void removeWine(Wine aThis) {
+	public void removeWine(Wine aThis) {
 		wines.remove(aThis);
 	}
 
-	void addWine(Wine aThis) {
+	public void addWine(Wine aThis) {
 		wines.add(aThis);
 	}
 }

@@ -2,6 +2,8 @@ package sw.wine.model.dao;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Logger;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -81,7 +83,9 @@ public class JPAWineDAO implements IWineDAO {
 	/*LIVRAISON*/
 	@Override
 	public void insertOrUpdate(IWine wine) throws DAOException {
+
 		try {
+			
 			Wine w = (Wine) wine;
 			if (w.getFBId() != null && em.find(Wine.class, w.getFBId()) != null) {
 				em.merge(w);
@@ -130,6 +134,7 @@ public class JPAWineDAO implements IWineDAO {
 	public Bottle findBottleById(long id) throws DAOException {
 		return em.find(Bottle.class, id);
 	}
+
 
 	@Override
 	public Location findOrCreateLocation(String country, String region,

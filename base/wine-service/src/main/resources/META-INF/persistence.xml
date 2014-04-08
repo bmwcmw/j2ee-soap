@@ -6,6 +6,7 @@
     <class>sw.wine.model.Bottle</class>
     <class>sw.wine.model.VarietyComposition</class>
     <class>sw.wine.model.Wine</class>
+    <class>sw.wine.model.user.Client</class>
     <properties>
       <property name="hibernate.connection.username" value="etudiant"/>
       <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>

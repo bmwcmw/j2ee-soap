@@ -37,6 +37,13 @@
     	<attribute name="id" type="string"></attribute>
     </complexType>
     
+    <complexType name="clientT">
+    	<sequence>
+	    	<element name="nom" type="string"></element>    	
+	    	<element name="compte" type="double"></element>
+    	</sequence>
+    </complexType>
+    
     <complexType name="compositionT">
     	<sequence>
     		<element name="variety" type="string"></element>

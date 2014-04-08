@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>sw.wine</groupId>
-            <artifactId>model1</artifactId>
+            <artifactId>model</artifactId>
             <version>2013.0</version>
             <type>jar</type>
             <scope>compile</scope>
@@ -121,6 +121,11 @@
             <version>9.2-1003-jdbc4</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.6</version>
+		</dependency>
     </dependencies>  
     <properties>
         <cxf.version>2.6.2</cxf.version>

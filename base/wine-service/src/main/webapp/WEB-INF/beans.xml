@@ -31,6 +31,8 @@
 
 
     <bean class="sw.wine.model.dao.JPAWineDAO" />
+	
+	<bean class="sw.wine.model.dao.ClientDAO" />
 
     <bean class="sw.wine.services.WineStorage" id="wineStorageImpl" />
 
