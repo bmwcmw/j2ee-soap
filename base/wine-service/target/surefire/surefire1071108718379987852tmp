@@ -1,7 +1,0 @@
-#surefire
-#Mon Mar 10 04:28:58 CET 2014
-tomcat.username=admin
-user.dir=/home/cmw/Desktop/wptiwe5/base-tp-tiw5/wine-service
-tomcat.password=admin
-localRepository=/root/.m2/repository
-basedir=/home/cmw/Desktop/wptiwe5/base-tp-tiw5/wine-service

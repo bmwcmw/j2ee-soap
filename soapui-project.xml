@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="tp4" resourceRoot="" soapui-version="4.6.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="WineStorageServiceSoapBinding" type="wsdl" bindingName="{http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage}WineStorageServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="file:/D:/Dropbox/5TC/M2R/TIW5/TP/TP4/wine-storage.xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\D:\Dropbox\5TC\M2R\TIW5\TP\TP2\wine-storage.xml"><con:part><con:url>file:\D:\Dropbox\5TC\M2R\TIW5\TP\TP2\wine-storage.xml</con:url><con:content><![CDATA[<wsdl:definitions name="WineStorageService" targetNamespace="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage" xmlns:ns1="http://www.univ-lyon1.fr/M2TI/TIW5/wine/model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.univ-lyon1.fr/M2TI/TIW5/wine/model"/>
+      <xs:element name="addWinesFromLocation" type="tns:addWinesFromLocation"/>
+      <xs:element name="addWinesFromLocationResponse" type="tns:addWinesFromLocationResponse"/>
+      <xs:element name="getWines" type="tns:getWines"/>
+      <xs:element name="getWinesResponse" type="tns:getWinesResponse"/>
+      <xs:complexType name="getWines">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="location" type="ns1:location"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getWinesResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="locations" type="ns1:wineCollection"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="addWinesFromLocation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="location" type="ns1:location"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="addWinesFromLocationResponse">
+        <xs:sequence>
+          <xs:element name="ack" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="wineColor">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Rose"/>
+          <xs:enumeration value="Red"/>
+          <xs:enumeration value="White"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="wineType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Fortified"/>
+          <xs:enumeration value="Dessert"/>
+          <xs:enumeration value="Sparkling"/>
+          <xs:enumeration value="Ice"/>
+          <xs:enumeration value="Straw"/>
+          <xs:enumeration value="Still"/>
+          <xs:enumeration value="Resinated"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="DAOException" type="tns:DAOException"/>
+      <xs:complexType name="DAOException">
+        <xs:sequence/>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.univ-lyon1.fr/M2TI/TIW5/wine/model" version="1.0" xmlns:ns1="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage" xmlns:tns="http://www.univ-lyon1.fr/M2TI/TIW5/wine/model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage"/>
+      <xs:element name="collection" type="tns:wineCollection"/>
+      <xs:complexType name="location">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="country" type="xs:string"/>
+          <xs:element minOccurs="0" name="region" type="xs:string"/>
+          <xs:element minOccurs="0" name="subregion" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="wine" type="tns:wine"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="wine">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="appellation" type="xs:string"/>
+          <xs:element minOccurs="0" name="color" type="ns1:wineColor"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="composition" type="tns:varietyComposition"/>
+          <xs:element name="percentageAlcohol" type="xs:double"/>
+          <xs:element minOccurs="0" name="producer" type="xs:string"/>
+          <xs:element minOccurs="0" name="vineyard" type="xs:string"/>
+          <xs:element minOccurs="0" name="vintage" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="style" type="xs:string"/>
+          <xs:element minOccurs="0" name="type" type="ns1:wineType"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="bottle" type="tns:bottle"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string"/>
+      </xs:complexType>
+      <xs:complexType name="varietyComposition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="variety" type="xs:string"/>
+          <xs:element name="percentage" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="bottle">
+        <xs:sequence/>
+        <xs:attribute name="id" type="xs:long"/>
+      </xs:complexType>
+      <xs:complexType name="wineCollection">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="location" type="tns:location"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="addWinesFromLocationResponse">
+    <wsdl:part element="tns:addWinesFromLocationResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getWinesResponse">
+    <wsdl:part element="tns:getWinesResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DAOException">
+    <wsdl:part element="tns:DAOException" name="DAOException"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getWines">
+    <wsdl:part element="tns:getWines" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addWinesFromLocation">
+    <wsdl:part element="tns:addWinesFromLocation" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="WineStorageItf">
+    <wsdl:operation name="getWines">
+      <wsdl:input message="tns:getWines" name="getWines"></wsdl:input>
+      <wsdl:output message="tns:getWinesResponse" name="getWinesResponse"></wsdl:output>
+      <wsdl:fault message="tns:DAOException" name="DAOException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="addWinesFromLocation">
+      <wsdl:input message="tns:addWinesFromLocation" name="addWinesFromLocation"></wsdl:input>
+      <wsdl:output message="tns:addWinesFromLocationResponse" name="addWinesFromLocationResponse"></wsdl:output>
+      <wsdl:fault message="tns:DAOException" name="DAOException"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WineStorageServiceSoapBinding" type="tns:WineStorageItf">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getWines">
+      <soap:operation soapAction="getWines" style="document"/>
+      <wsdl:input name="getWines">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getWinesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DAOException">
+        <soap:fault name="DAOException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="addWinesFromLocation">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="addWinesFromLocation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addWinesFromLocationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DAOException">
+        <soap:fault name="DAOException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WineStorageService">
+    <wsdl:port binding="tns:WineStorageServiceSoapBinding" name="WineStoragePort">
+      <soap:address location="http://192.168.56.101:8080/wine-service/services/wine-storage"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://192.168.56.101:8080/wine-service/services/wine-storage</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="addWinesFromLocation" bindingOperationName="addWinesFromLocation" type="Request-Response" outputName="addWinesFromLocationResponse" inputName="addWinesFromLocation" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.56.102:8080/wine-service/services/wine-storage</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage" xmlns:mod="http://www.univ-lyon1.fr/M2TI/TIW5/wine/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <stor:addWinesFromLocation>
+         <!--Optional:-->
+         <location>
+            <!--Optional:-->
+            <mod:country>FRANCE</mod:country>
+            <!--Optional:-->
+            <mod:region>RHONE-ALPES</mod:region>
+            <!--Optional:-->
+            <mod:subregion>RHONE</mod:subregion>
+            <!--Zero or more repetitions:-->
+            <mod:wine id="">
+               <!--Optional:-->
+               <mod:appellation>Côtes du rhône contrôlée</mod:appellation>
+               <!--Optional:-->
+               <mod:color>ROUGE</mod:color>
+               <!--Zero or more repetitions:-->
+               <mod:composition>
+                  <!--Optional:-->
+                  <mod:variety>H2O</mod:variety>
+                  <mod:percentage>78</mod:percentage>
+               </mod:composition>
+               <mod:composition>
+                  <!--Optional:-->
+                  <mod:variety>ZAZA</mod:variety>
+                  <mod:percentage>1</mod:percentage>
+               </mod:composition>
+               <mod:percentageAlcohol>23</mod:percentageAlcohol>
+               <!--Optional:-->
+               <mod:producer>LYON1</mod:producer>
+               <!--Optional:-->
+               <mod:vineyard>AbricotVille</mod:vineyard>
+               <!--Optional:-->
+               <mod:vintage>2012</mod:vintage>
+               <!--Optional:-->
+               <mod:style>Style2</mod:style>
+               <!--Optional:-->
+               <mod:type>Resinated</mod:type>
+               <mod:price>2.5</mod:price>
+               <!--Zero or more repetitions:-->
+               <mod:bottle id="0"/>
+               <mod:bottle id="0"/>
+               <mod:bottle id="0"/>
+               <mod:bottle id="0"/>
+            </mod:wine>
+         </location>
+      </stor:addWinesFromLocation>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage/WineStorageItf/addWinesFromLocation"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="getWines" name="getWines" bindingOperationName="getWines" type="Request-Response" outputName="getWinesResponse" inputName="getWines" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.56.102:8080/wine-service/services/wine-storage</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage" xmlns:mod="http://www.univ-lyon1.fr/M2TI/TIW5/wine/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <stor:getWines>
+         <!--Zero or more repetitions:-->
+         <location>
+            <!--Optional:-->
+            <mod:country>FRANCE</mod:country>
+            <!--Optional:-->
+            <mod:region>RHONE-ALPES</mod:region>
+            <!--Optional:-->
+            <mod:subregion>RHONE</mod:subregion>
+         </location>
+         <location>
+            <!--Optional:-->
+            <mod:country>CHINA</mod:country>
+            <!--Optional:-->
+            <mod:region>GD</mod:region>
+            <!--Optional:-->
+            <mod:subregion>GZ</mod:subregion>
+         </location>
+      </stor:getWines>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="getWines"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="TestSuiteAdd"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCaseAdd" searchProperties="true" id="e3f6a9b1-7269-48fb-8bbe-84bd6a3f1abe"><con:settings/><con:testStep type="request" name="addWinesFromLocation - Request SOAP OK"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>WineStorageServiceSoapBinding</con:interface><con:operation>addWinesFromLocation</con:operation><con:request name="addWinesFromLocation - Request SOAP OK" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.56.101:8080/wine-service/services/wine-storage</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage" xmlns:mod="http://www.univ-lyon1.fr/M2TI/TIW5/wine/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <stor:addWinesFromLocation>
+         <!--Optional:-->
+         <location>
+            <!--Optional:-->
+            <mod:country>FRANCE</mod:country>
+            <!--Optional:-->
+            <mod:region>RHONE-ALPES</mod:region>
+            <!--Optional:-->
+            <mod:subregion>RHONE</mod:subregion>
+            <!--Zero or more repetitions:-->
+            <mod:wine id="124">
+               <!--Optional:-->
+               <mod:appellation>RHONE</mod:appellation>
+               <!--Optional:-->
+               <mod:color>BLANC</mod:color>
+               <!--Zero or more repetitions:-->
+               <mod:composition>
+                  <!--Optional:-->
+                  <mod:variety>H2O</mod:variety>
+                  <mod:percentage>77</mod:percentage>
+               </mod:composition>
+               <mod:percentageAlcohol>13</mod:percentageAlcohol>
+               <!--Optional:-->
+               <mod:producer>ZAZA</mod:producer>
+               <!--Optional:-->
+               <mod:vineyard>PEROUGE</mod:vineyard>
+               <!--Optional:-->
+               <mod:vintage>2013</mod:vintage>
+               <!--Optional:-->
+               <mod:style>RES</mod:style>
+               <!--Optional:-->
+               <mod:type>RES</mod:type>
+               <!--Zero or more repetitions:-->
+               <mod:bottle id="0123"/>
+            </mod:wine>
+         </location>
+      </stor:addWinesFromLocation>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="Response SLA Assertion" name="Response SLA"><con:configuration><SLA>500</SLA></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage/WineStorageItf/addWinesFromLocation"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Test Request Fault"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>WineStorageServiceSoapBinding</con:interface><con:operation>addWinesFromLocation</con:operation><con:request name="Test Request Fault"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.56.101:8080/wine-service/services/wine-storage</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage" xmlns:mod="http://www.univ-lyon1.fr/M2TI/TIW5/wine/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <stor:addWinesFromLocation>
+         <!--Optional:-->
+         <lozation>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Not SOAP Fault Assertion" name="SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="TestSuiteGet"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCaseGet" searchProperties="true"><con:settings/><con:testStep type="request" name="getWines - Request SOAP OK"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>WineStorageServiceSoapBinding</con:interface><con:operation>getWines</con:operation><con:request name="getWines - Request SOAP OK" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.56.101:8080/wine-service/services/wine-storage</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage" xmlns:mod="http://www.univ-lyon1.fr/M2TI/TIW5/wine/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <stor:getWines>
+         <!--Zero or more repetitions:-->
+         <location>
+            <!--Optional:-->
+            <mod:country>FRANCE</mod:country>
+            <!--Optional:-->
+            <mod:region>RHONE-ALPES</mod:region>
+            <!--Optional:-->
+            <mod:subregion>RHONE</mod:subregion>
+         </location>
+         <location>
+            <!--Optional:-->
+            <mod:country>CHINA</mod:country>
+            <!--Optional:-->
+            <mod:region>GD</mod:region>
+            <!--Optional:-->
+            <mod:subregion>GZ</mod:subregion>
+         </location>
+      </stor:getWines>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="Response SLA Assertion" name="Response SLA"><con:configuration><SLA>500</SLA></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="getWines"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Test Request Fault"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>WineStorageServiceSoapBinding</con:interface><con:operation>getWines</con:operation><con:request name="Test Request Fault"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.56.101:8080/wine-service/services/wine-storage</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://www.univ-lyon1.fr/M2TI/TIW5/wine/service/storage">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <stor:getWines>
+       <lozation>
+       </lozation>
+      </stor:getWines>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>

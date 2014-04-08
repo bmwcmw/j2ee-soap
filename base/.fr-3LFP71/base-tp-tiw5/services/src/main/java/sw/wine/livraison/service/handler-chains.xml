@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+  <handler-chain>
+  
+  <!--  
+    <handler>
+      <handler-name>sw.wine.handlers.SimpleLogHandler</handler-name>
+      <handler-class>sw.wine.handlers.SimpleLogHandler</handler-class>
+    </handler>
+    <handler>
+      <handler-name>sw.wine.handlers.SoapHeadHandler</handler-name>
+      <handler-class>sw.wine.handlers.SoapHeadHandler</handler-class>
+    </handler>
+    -->
+    
+    <handler>
+      <handler-name>sw.wine.handlers.ClientCheckHandler</handler-name>
+      <handler-class>sw.wine.handlers.ClientCheckHandler</handler-class>
+    </handler>
+    
+    
+    <!-- handler>
+      <handler-name>un.autre.Handler</handler-name>
+      <handler-class>un.autre.Handler</handler-class>
+    </handler -->
+  </handler-chain>
+</handler-chains>
+
